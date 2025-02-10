@@ -2,7 +2,7 @@ import Link from "next/link";
 import {
   ClerkProvider,
   SignInButton,
-  SignUpButton,
+  Protect,
   SignedIn,
   SignedOut,
   UserButton,
@@ -18,19 +18,21 @@ export default function Navbar() {
             MyDaily
           </a>
         </div>
-        <a className="btn btn-ghost" href={"/dashboard"}>
-          Dashboard
-        </a>
-        <div className="navbar-centen lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            <li>
-              <a href={"/addTopic"}>Add Topic</a>
-            </li>
-          </ul>
-        </div>
+        <Protect permission="org:manage:read">
+          <a className="btn btn-ghost" href={"/dashboard"}>
+            Dashboard
+          </a>
+          <div className="navbar-centen lg:flex">
+            <ul className="menu menu-horizontal px-1">
+              <li>
+                <a href={"/addTopic"}>Add Topic</a>
+              </li>
+            </ul>
+          </div>
+        </Protect>
         <div className="navbar-end">
           <SignedOut>
-            <SignInButton />
+            <SignInButton className="btn btn-sm btn-outline" />
           </SignedOut>
           <SignedIn>
             <UserButton />
