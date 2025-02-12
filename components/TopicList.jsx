@@ -32,6 +32,11 @@ export default async function TopicsList() {
             <h2 className="font-bold text-2xl">{t.title}</h2>
             <div>{t.description}</div>
           </div>
+          <div className="flex gap-2">
+            <Link className="btn btn-primary" href={`/detailTopic/${t._id}`}>
+              Detail
+            </Link>
+          </div>
         </div>
       ))}
     </>

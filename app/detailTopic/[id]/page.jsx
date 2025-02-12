@@ -1,4 +1,4 @@
-import EditTopicForm from "@/components/EditTopicForm";
+import Link from "next/link";
 const getTopicById = async (id) => {
   try {
     const res = await fetch(`http://localhost:3000/api/topics/${id}`, {
@@ -14,10 +14,20 @@ const getTopicById = async (id) => {
     console.log(error);
   }
 };
-export default async function EditTopic({ params }) {
+
+export default async function DetailTopic({ params }) {
   const { id } = await params;
   const { topic } = await getTopicById(id);
   const { title, description } = topic;
 
-  return <EditTopicForm id={id} title={title} description={description} />;
+  return (
+    <>
+      <div className="divider">
+        <h1 className="text-xl">{title}</h1>
+      </div>
+      <div className="divider-info">
+        <p>{description}</p>
+      </div>
+    </>
+  );
 }
