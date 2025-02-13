@@ -8,6 +8,7 @@ import Slide from "@mui/material/Slide";
 export default function AddTopicPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
   const router = useRouter();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -17,7 +18,7 @@ export default function AddTopicPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description) {
+    if (!title || !description || !content) {
       setShowAlert(true);
       return;
     }
@@ -28,7 +29,7 @@ export default function AddTopicPage() {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description, content }),
       });
 
       if (res.ok) {
@@ -70,6 +71,14 @@ export default function AddTopicPage() {
         <input
           onChange={(e) => setDescription(e.target.value)}
           value={description}
+          className="border-2 border-slate-500 px-8 py-2 rounded-2xl"
+          type="text"
+          placeholder="Topic Description"
+        ></input>
+
+        <input
+          onChange={(e) => setContent(e.target.value)}
+          value={content}
           className="border-2 border-slate-500 px-8 py-2 rounded-2xl"
           type="text"
           placeholder="Topic Description"

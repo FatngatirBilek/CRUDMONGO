@@ -10,9 +10,9 @@ export async function POST(request) {
       { status: 401 },
     );
   }
-  const { title, description } = await request.json();
+  const { title, description, content } = await request.json();
   await connect();
-  await Topic.create({ title, description });
+  await Topic.create({ title, description, content });
   return NextResponse.json(
     { userId },
     { message: "Topic dibuat" },

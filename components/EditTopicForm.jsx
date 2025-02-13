@@ -3,9 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function EditTopicForm({ id, title, description }) {
+export default function EditTopicForm({ id, title, description, content }) {
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
+  const [newContent, setNewContent] = useState(content);
 
   const router = useRouter();
 
@@ -18,7 +19,7 @@ export default function EditTopicForm({ id, title, description }) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ newTitle, newDescription }),
+        body: JSON.stringify({ newTitle, newDescription, newContent }),
       });
 
       if (!res.ok) {
@@ -48,6 +49,14 @@ export default function EditTopicForm({ id, title, description }) {
         className="border border-slate-500 px-8 py-2 rounded-2xl"
         type="text"
         placeholder="Topic Description"
+      />
+
+      <input
+        onChange={(e) => setNewContent(e.target.value)}
+        value={newContent}
+        className="border border-slate-500 px-8 py-2 rounded-2xl"
+        type="text"
+        placeholder="Topic Content"
       />
 
       <button className="bg-gray-600 font-bold text-white py-3 px-6 w-fit rounded-xl">

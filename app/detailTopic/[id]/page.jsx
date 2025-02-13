@@ -18,7 +18,7 @@ const getTopicById = async (id) => {
 export default async function DetailTopic({ params }) {
   const { id } = await params;
   const { topic } = await getTopicById(id);
-  const { title, description } = topic;
+  const { title, description, content } = topic;
 
   return (
     <>
@@ -27,6 +27,7 @@ export default async function DetailTopic({ params }) {
       </div>
       <div className="divider-info">
         <p>{description}</p>
+        <p>{content}</p>
       </div>
     </>
   );

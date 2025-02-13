@@ -4,9 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   const { id } = await params;
-  const { newTitle: title, newDescription: description } = await request.json();
+  const {
+    newTitle: title,
+    newDescription: description,
+    newContent: content,
+  } = await request.json();
   await connect();
-  await Topic.findByIdAndUpdate(id, { title, description });
+  await Topic.findByIdAndUpdate(id, { title, description, content });
   return NextResponse.json({ message: "Topic updated" }, { status: 200 });
 }
 
