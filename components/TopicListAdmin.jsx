@@ -5,7 +5,7 @@ import { HiPencilAlt } from "react-icons/hi";
 const getTopics = async () => {
   try {
     const res = await fetch("http://localhost:3000/api/topics", {
-      cache: "no-store",
+      next: { revalidate: 10 },
     });
 
     if (!res.ok) {
@@ -15,11 +15,16 @@ const getTopics = async () => {
     return res.json();
   } catch (error) {
     console.log("Error loading topics: ", error);
+    return { topics: [] }; // Return an empty array if there's an error
   }
 };
 
 export default async function TopicsList() {
   const { topics } = await getTopics();
+
+  if (!topics || topics.length === 0) {
+    return <div>No topics available.</div>;
+  }
 
   return (
     <>
