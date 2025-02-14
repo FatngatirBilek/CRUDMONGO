@@ -5,6 +5,11 @@ import { useRouter } from "next/navigation";
 import { Alert } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Slide from "@mui/material/Slide";
+
+const Transition = (props) => {
+  return <Slide {...props} direction="up" />;
+};
+
 export default function AddTopicPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -15,6 +20,7 @@ export default function AddTopicPage() {
   const handleClose = () => {
     setShowAlert(false);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,15 +41,11 @@ export default function AddTopicPage() {
       if (res.ok) {
         router.push("/");
       } else {
-        throw new Error("Gagal membuat topic ");
+        throw new Error("Failed to create topic");
       }
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const Transition = (props) => {
-    return <Slide {...props} direction="up" />;
   };
 
   return (
@@ -56,7 +58,7 @@ export default function AddTopicPage() {
         TransitionComponent={Transition}
       >
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-          Title and description are required
+          All fields are required
         </Alert>
       </Snackbar>
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -81,7 +83,7 @@ export default function AddTopicPage() {
           value={content}
           className="border-2 border-slate-500 px-8 py-2 rounded-2xl"
           type="text"
-          placeholder="Topic Description"
+          placeholder="Topic Content"
         ></input>
 
         <button
